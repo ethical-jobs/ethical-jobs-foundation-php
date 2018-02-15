@@ -13,7 +13,7 @@ trait CreatesApplication
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        $app = require base_path('bootstrap/app.php');
 
         $dotenv = new \Dotenv\Dotenv(base_path('.env.testing'));
 
