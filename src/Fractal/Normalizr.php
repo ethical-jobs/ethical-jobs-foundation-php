@@ -1,6 +1,6 @@
 <?php
 
-namespace EthicalJobs\Foundation\Exceptions;
+namespace EthicalJobs\Foundation\Fractal;
 
 use League\Fractal\Pagination\CursorInterface;
 use League\Fractal\Pagination\PaginatorInterface;
