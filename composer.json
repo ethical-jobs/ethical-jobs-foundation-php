@@ -44,7 +44,8 @@
         "laravel": {
             "providers": [
                 "EthicalJobs\\Foundation\\Laravel\\LoggingServiceProvider",
-                "EthicalJobs\\Foundation\\Laravel\\FractalServiceProvider"
+                "EthicalJobs\\Foundation\\Laravel\\FractalServiceProvider",
+                "EthicalJobs\\Foundation\\Laravel\\QueueServiceProvider"
             ],
             "aliases": {
                 "Fractal": "Spatie\\Fractal\\FractalFacade"

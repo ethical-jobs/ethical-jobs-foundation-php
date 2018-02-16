@@ -17,6 +17,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 	    return [
 	    	Laravel\LoggingServiceProvider::class,
 	    	Laravel\FractalServiceProvider::class,
+	    	Laravel\QueueServiceProvider::class,
 	   	];
 	}
 
