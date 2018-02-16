@@ -36,7 +36,6 @@ class QueueServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
             $this->assertEquals($arg2['service'], 'Laravel');
             $this->assertEquals($arg2['connection'], 'sync');
             $this->assertEquals($arg2['exception']['message'], 'We have run out of milk!');
-            $this->assertEquals($arg2['exception']['file'], "/usr/src/tests/Fixtures/FailingQueueJob.php");
             $this->assertEquals($arg2['exception']['line'], 22);
             $this->assertTrue(is_string($arg2['exception']['trace']));
             return true;
