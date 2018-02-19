@@ -54,9 +54,9 @@ class LoggingServiceProvider extends ServiceProvider
     {
         if (in_array(App::environment(), ['production', 'staging', 'testing'])) {
 
-            $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
-
             $this->extendConfig();
+
+            $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
         }        
     }   
 

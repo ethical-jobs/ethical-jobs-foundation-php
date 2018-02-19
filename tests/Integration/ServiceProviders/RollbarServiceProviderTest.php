@@ -29,5 +29,7 @@ class RollbarServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
         $config = config('services');
 
         $this->assertTrue(array_has($config, 'rollbar'));
+
+        $this->assertTrue(array_has($config, 'rollbar.access_token'));
     }        
 }
