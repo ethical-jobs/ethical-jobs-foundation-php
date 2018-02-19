@@ -23,7 +23,7 @@ class QueueServiceProvider extends ServiceProvider
     public function boot() 
     {
        Queue::failing(function (JobFailed $event) {
-            Log::queue("ej:queue:fail", [
+            Log::critical("ej:queue:fail", [
                 'job'           => $event->job->resolveName() ?? null,
                 'service'       => config('app.name') ?? null,
                 'connection'    => $event->connectionName ?? null,
@@ -33,7 +33,7 @@ class QueueServiceProvider extends ServiceProvider
                     'line'    => $event->exception->getLine() ?? null,
                     'trace'   => $event->exception->getTraceAsString() ?? null,                    
                 ],
-            ], 'critical');
+            ]);
         });        
     }
 

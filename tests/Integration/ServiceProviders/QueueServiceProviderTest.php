@@ -28,10 +28,8 @@ class QueueServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
     {        
         $this->expectException(\Exception::class);
 
-        $validateArguments = function ($arg1, $arg2, $arg3) {
+        $validateArguments = function ($arg1, $arg2) {
             $this->assertEquals('ej:queue:fail', $arg1);
-            $this->assertEquals('critical', $arg3);
-            $this->assertEquals('critical', $arg3);
             $this->assertEquals($arg2['job'], Fixtures\FailingQueueJob::class);
             $this->assertEquals($arg2['service'], 'Laravel');
             $this->assertEquals($arg2['connection'], 'sync');
@@ -41,7 +39,7 @@ class QueueServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
             return true;
         };
 
-        Log::shouldReceive('queue')
+        Log::shouldReceive('critical')
             ->once()
             ->withArgs($validateArguments);
 
