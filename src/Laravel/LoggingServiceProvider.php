@@ -52,8 +52,9 @@ class LoggingServiceProvider extends ServiceProvider
      */
     public function registerRollbar()
     {
-        if (in_array(App::environment(), ['production', 'staging', 'testing'])) {
-
+        dump(App::environment());
+        if (in_array(App::environment(), ['production', 'staging'])) {
+            dd(1);
             $this->extendConfig();
 
             $this->app->register(\Rollbar\Laravel\RollbarServiceProvider::class);
