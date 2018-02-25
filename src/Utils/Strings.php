@@ -11,8 +11,7 @@ namespace EthicalJobs\Foundation\Utils;
 class Strings
 {
     /**
-     * 
-     * 
+     * Returns array with operator and string
      *
      * @param string $string
      * @return array
