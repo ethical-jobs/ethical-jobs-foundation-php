@@ -25,6 +25,18 @@ class DatabaseQueryLanguage implements QueryLanguageInterface
     }    
 
     /**
+     * {@inheritdoc}
+     */
+    public function wildcardQuery($query, string $field, string $string)
+    {
+        $string = trim(str_replace('*', '%', $string));
+
+        $query->where($field, 'like', $string);
+
+        return $query;        
+    }        
+
+    /**
      * Return range query operators + search from a string
      *
      * @param string $string

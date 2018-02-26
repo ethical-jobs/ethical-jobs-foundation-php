@@ -22,4 +22,14 @@ interface QueryLanguageInterface
      * @return mixed
      */
     public function rangeQuery($query, string $field, string $string);
+
+    /**
+     * Execute a wildcard query with the * operator
+     *
+     * @param mixed $query
+     * @param string $field
+     * @param string $string
+     * @return mixed
+     */
+    public function wildcardQuery($query, string $field, string $string);    
 }

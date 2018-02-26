@@ -44,6 +44,18 @@ class ElasticsearchQueryLanguage implements QueryLanguageInterface
     }    
 
     /**
+     * {@inheritdoc}
+     */
+    public function wildcardQuery($query, string $field, string $string)
+    {
+        $query->addQuery(new TermLevel\WildcardQuery($field, trim($string), [
+            'boost' => 2,
+        ]), BoolQuery::FILTER);
+
+        return $query;
+    }
+
+    /**
      * Return range query operators + search from a string
      *
      * @param string $string
