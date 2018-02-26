@@ -18,7 +18,8 @@
     "require": {
         "php": "^7.0",
         "spatie/laravel-fractal": "^5.3",
-        "rollbar/rollbar-laravel": "^2.2"
+        "rollbar/rollbar-laravel": "^2.2",
+        "ongr/elasticsearch-dsl": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.5",
