@@ -56,6 +56,22 @@ class ElasticsearchQueryLanguage implements QueryLanguageInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function termsQuery($query, string $field, $terms)
+    {
+        if (is_array($terms)) {
+            $queryObject = new TermLevel\TermsQuery($field, $terms);
+        } else {
+            $queryObject = new TermLevel\TermQuery($field, $terms);
+        }
+
+        $query->addQuery($queryObject, BoolQuery::FILTER);
+
+        return $query;
+    }    
+
+    /**
      * Return range query operators + search from a string
      *
      * @param string $string

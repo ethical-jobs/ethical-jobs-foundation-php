@@ -34,7 +34,19 @@ class DatabaseQueryLanguage implements QueryLanguageInterface
         $query->where($field, 'like', $string);
 
         return $query;        
-    }        
+    }       
+
+    /**
+     * {@inheritdoc}
+     */
+    public function termsQuery($query, string $field, $terms)
+    {
+        $terms = is_array($terms) ? $terms : [$terms];
+
+        $query->whereIn($field, $terms);
+
+        return $query;
+    }       
 
     /**
      * Return range query operators + search from a string

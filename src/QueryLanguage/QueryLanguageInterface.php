@@ -32,4 +32,14 @@ interface QueryLanguageInterface
      * @return mixed
      */
     public function wildcardQuery($query, string $field, string $string);    
+
+    /**
+     * Execute a terms matching query
+     *
+     * @param mixed $query
+     * @param string $field
+     * @param string|array $terms
+     * @return mixed
+     */
+    public function termsQuery($query, string $field, $terms);      
 }
