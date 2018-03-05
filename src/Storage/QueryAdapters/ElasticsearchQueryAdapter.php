@@ -4,9 +4,10 @@ namespace EthicalJobs\Foundation\Storage\QueryAdapters;
 
 use Carbon\Carbon;
 use ONGR\ElasticsearchDSL\Search;
+use Illuminate\Database\Eloquent\Model;
+use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use ONGR\ElasticsearchDSL\Query\TermLevel;
 use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
-use ONGR\ElasticsearchDSL\Sort\FieldSort;
 use EthicalJobs\Foundation\Storage\QueryAdapter;
 use EthicalJobs\Foundation\Utils;
 
@@ -59,6 +60,34 @@ class ElasticsearchQueryAdapter implements QueryAdapter
     {
         return $this->query;   
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findById($id): Model
+    {
+        $query = new TermLevel\TermQuery('id', $id);
+
+        $this->query->addQuery($query, BoolQuery::FILTER);        
+
+        return $this;        
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByField(string $field, $value): Model
+    {
+        if (method_exists($this->query, 'withTrashed')) {
+            $this->query->withTrashed();
+        }
+
+        if ($entity = $this->query->where($field, $value)->first()) {
+            return $entity;
+        }
+
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException("Entity with `$field` value `$value` not found");
+    }         
 
     /**
      * {@inheritdoc}
@@ -264,6 +293,28 @@ class ElasticsearchQueryAdapter implements QueryAdapter
     {
         return method_exists($this, $functionName);
     }        
+
+    /**
+     * {@inheritdoc}
+     */
+    public function find()
+    {
+        // $response = $this->elasticsearch->search([
+        //     'index' => Elasticsearch\Index::getIndexName(),
+        //     'type'  => $this->model->getDocumentType(),
+        //     'body'  => $this->search->toArray(),
+        // ]);
+
+        // if ($response['hits']['total'] < 1) {
+        //     throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+        // }
+
+        // if ($this->shouldHydrate) {
+        //     return (new Hydrators\EloquentHydrator)->hydrateFromResponse($response, $this->model);
+        // } else {
+        //     return (new Hydrators\ArrayObjectHydrator)->hydrateFromResponse($response, $this->model);
+        // }
+    }    
 
     /**
      * Return range query operators + search from a string

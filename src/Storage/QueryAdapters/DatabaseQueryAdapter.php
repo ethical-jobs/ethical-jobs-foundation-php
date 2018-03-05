@@ -4,6 +4,7 @@ namespace EthicalJobs\Foundation\Storage\QueryAdapters;
 
 use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Model;
 use EthicalJobs\Foundation\Storage\QueryAdapter;
 use EthicalJobs\Foundation\Utils;
 
@@ -56,6 +57,42 @@ class DatabaseQueryAdapter implements QueryAdapter
     {
         return $this->query;   
     } 
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findById($id): Model
+    {
+        if ($id instanceof Model) {
+            return $id;
+        }
+
+        if (method_exists($this->query, 'withTrashed')) {
+            $this->query->withTrashed();
+        }
+
+        if ($entity = $this->query->find($id)) {
+            return $entity;
+        }
+
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException("Entity with id: $id not found");
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByField(string $field, $value): Model
+    {
+        if (method_exists($this->query, 'withTrashed')) {
+            $this->query->withTrashed();
+        }
+
+        if ($entity = $this->query->where($field, $value)->first()) {
+            return $entity;
+        }
+
+        throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException("Entity with `$field` value `$value` not found");
+    }    
 
     /**
      * {@inheritdoc}

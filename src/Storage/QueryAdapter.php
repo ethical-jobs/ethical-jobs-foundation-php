@@ -2,6 +2,8 @@
 
 namespace EthicalJobs\Foundation\Storage;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Query adapter interface - unifies our query language
  *
@@ -11,26 +13,43 @@ namespace EthicalJobs\Foundation\Storage;
 interface QueryAdapter
 {
     /**
+     * Gets the query instance
+     *
+     * @return mixed
+     */
+    public function getQuery();   
+
+    /**
      * Sets the query instance
      *
      * @param mixed $query
      * @return $this
      */
-    public function setQuery($query);
+    public function setQuery($query); 
 
     /**
-     * Gets the query instance
+     * Find a model by its id
      *
-     * @return mixed
+     * @param string|int $id
+     * @return Illuminate\Database\Eloquent\Model
      */
-    public function getQuery();    
+    public function findById($id): Model;   
+
+    /**
+     * Find a model by a field
+     *
+     * @param string $field
+     * @param mixed $value
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function findByField(string $field, $value): Model;            
 
     /**
      * Execute a range query with operators: >, <, >=, <=, =, !=
      *
      * @param string $field
      * @param string $string
-     * @return mixed
+     * @return $this
      */
     public function rangeQuery(string $field, string $string);
 
@@ -39,7 +58,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string $dateString
-     * @return mixed
+     * @return $this
      */
     public function dateFromQuery(string $field, string $dateString);    
 
@@ -48,7 +67,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string $dateString
-     * @return mixed
+     * @return $this
      */
     public function dateToQuery(string $field, string $dateString);     
 
@@ -57,7 +76,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param mixed $truthy
-     * @return mixed
+     * @return $this
      */
     public function boolQuery(string $field, $truthy);        
 
@@ -66,7 +85,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string $inclusion
-     * @return mixed
+     * @return $this
      */
     public function archivedQuery(string $field, string $inclusion);           
 
@@ -75,7 +94,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string $truthy
-     * @return mixed
+     * @return $this
      */
     public function expiredQuery(string $field, string $truthy);              
 
@@ -84,7 +103,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string $string
-     * @return mixed
+     * @return $this
      */
     public function wildcardQuery(string $field, string $string);    
 
@@ -93,7 +112,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string|array $terms
-     * @return mixed
+     * @return $this
      */
     public function termsQuery(string $field, $terms);     
 
@@ -102,7 +121,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string|array $ids
-     * @return mixed
+     * @return $this
      */
     public function belongsToQuery(string $field, $ids);    
 
@@ -111,7 +130,7 @@ interface QueryAdapter
      *
      * @param string $field
      * @param string|array $ids
-     * @return mixed
+     * @return $this
      */
     public function belongsToManyQuery(string $field, $ids); 
 
@@ -119,7 +138,7 @@ interface QueryAdapter
      * Execute an order by query
      *
      * @param string $orderBy
-     * @return mixed
+     * @return $this
      */
     public function orderByQuery(string $orderBy);   
 
@@ -127,7 +146,7 @@ interface QueryAdapter
      * Execute an order query
      *
      * @param string $direction
-     * @return mixed
+     * @return $this
      */
     public function orderQuery(string $direction);                
 
@@ -135,7 +154,7 @@ interface QueryAdapter
      * Limit the current query
      *
      * @param int $limit
-     * @return mixed
+     * @return $this
      */
     public function limitQuery(int $limit);                    
 
@@ -146,4 +165,11 @@ interface QueryAdapter
      * @return bool
      */
     public function hasQueryFunction(string $functionName): bool;
+
+    /**
+     * Return the result of the query
+     *
+     * @return \Illuminate\Database\Eloquent\Collection $results
+     */
+    public function find();
 }
