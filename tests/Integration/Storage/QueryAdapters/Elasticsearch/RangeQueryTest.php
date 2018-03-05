@@ -1,11 +1,12 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\QueryLanguage\Elasticsearch;
+namespace EthicalJobs\Tests\Foundation\Integration\Storage\QueryAdapters\Elasticsearch;
 
 use Mockery;
+use ONGR\ElasticsearchDSL\Search;
 use ONGR\ElasticsearchDSL\Query\TermLevel;
 use ONGR\ElasticsearchDSL\Query\Compound\BoolQuery;
-use EthicalJobs\Foundation\QueryLanguage\ElasticsearchQueryLanguage;
+use EthicalJobs\Foundation\Storage\QueryAdapters\ElasticsearchQueryAdapter;
 
 class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
 {
@@ -13,9 +14,20 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
      * @test
      * @group Unit
      */
+    public function it_has_fluent_interface()
+    {    
+        $adapter = new ElasticsearchQueryAdapter(new Search);
+
+        $this->assertInstanceOf(ElasticsearchQueryAdapter::class, $adapter->rangeQuery('age', '2726'));
+    }
+
+    /**
+     * @test
+     * @group Unit
+     */
     public function it_can_execute_a_gte_range_query()
     {
-        $query = Mockery::mock('query')
+        $query = Mockery::mock(Search::class)
             ->shouldReceive('addQuery')->once()
             ->withArgs(function ($termQuery, $boolQuery) {
                 $this->assertEquals($termQuery->toArray(), [
@@ -30,10 +42,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
                 return true;
             })->getMock();
 
-        $returnedQuery = (new ElasticsearchQueryLanguage)
-            ->rangeQuery($query, 'age', '>=1286');
-
-        $this->assertEquals($query, $returnedQuery);
+        (new ElasticsearchQueryAdapter($query))->rangeQuery('age', '>=1286');
     }
 
     /**
@@ -42,7 +51,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
      */
     public function it_can_execute_a_lte_range_query()
     {
-        $query = Mockery::mock('query')
+        $query = Mockery::mock(Search::class)
             ->shouldReceive('addQuery')->once()
             ->withArgs(function ($termQuery, $boolQuery) {
                 $this->assertEquals($termQuery->toArray(), [
@@ -57,10 +66,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
                 return true;
             })->getMock();
 
-        $returnedQuery = (new ElasticsearchQueryLanguage)
-            ->rangeQuery($query, 'age', '<=1286');
-
-        $this->assertEquals($query, $returnedQuery);
+        (new ElasticsearchQueryAdapter($query))->rangeQuery('age', '<=1286');
     }    
 
     /**
@@ -69,7 +75,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
      */
     public function it_can_execute_a_lt_range_query()
     {
-        $query = Mockery::mock('query')
+        $query = Mockery::mock(Search::class)
             ->shouldReceive('addQuery')->once()
             ->withArgs(function ($termQuery, $boolQuery) {
                 $this->assertEquals($termQuery->toArray(), [
@@ -84,10 +90,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
                 return true;
             })->getMock();
 
-        $returnedQuery = (new ElasticsearchQueryLanguage)
-            ->rangeQuery($query, 'age', '<1286');
-
-        $this->assertEquals($query, $returnedQuery);
+        (new ElasticsearchQueryAdapter($query))->rangeQuery('age', '<1286');
     }        
 
     /**
@@ -96,7 +99,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
      */
     public function it_can_execute_a_gt_range_query()
     {
-        $query = Mockery::mock('query')
+        $query = Mockery::mock(Search::class)
             ->shouldReceive('addQuery')->once()
             ->withArgs(function ($termQuery, $boolQuery) {
                 $this->assertEquals($termQuery->toArray(), [
@@ -111,10 +114,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
                 return true;
             })->getMock();
 
-        $returnedQuery = (new ElasticsearchQueryLanguage)
-            ->rangeQuery($query, 'age', '>1286');
-
-        $this->assertEquals($query, $returnedQuery);
+        (new ElasticsearchQueryAdapter($query))->rangeQuery('age', '>1286');
     }            
 
     /**
@@ -123,7 +123,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
      */
     public function it_can_execute_a_not_range_query()
     {
-        $query = Mockery::mock('query')
+        $query = Mockery::mock(Search::class)
             ->shouldReceive('addQuery')->once()
             ->withArgs(function ($termQuery, $boolQuery) {
                 $this->assertEquals($termQuery->toArray(), [
@@ -135,10 +135,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
                 return true;
             })->getMock();
 
-        $returnedQuery = (new ElasticsearchQueryLanguage)
-            ->rangeQuery($query, 'age', '!=1286');
-
-        $this->assertEquals($query, $returnedQuery);
+        (new ElasticsearchQueryAdapter($query))->rangeQuery('age', '!=1286');
     }     
 
 
@@ -148,7 +145,7 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
      */
     public function it_can_execute_a_eql_range_query()
     {
-        $query = Mockery::mock('query')
+        $query = Mockery::mock(Search::class)
             ->shouldReceive('addQuery')->once()
             ->withArgs(function ($termQuery, $boolQuery) {
                 $this->assertEquals($termQuery->toArray(), [
@@ -160,9 +157,6 @@ class RangeQueryTest extends \EthicalJobs\Tests\Foundation\TestCase
                 return true;
             })->getMock();
 
-        $returnedQuery = (new ElasticsearchQueryLanguage)
-            ->rangeQuery($query, 'age', '=1286');
-
-        $this->assertEquals($query, $returnedQuery);
+        (new ElasticsearchQueryAdapter($query))->rangeQuery('age', '=1286');
     }     
 }
