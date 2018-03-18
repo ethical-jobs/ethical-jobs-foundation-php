@@ -1,3 +1,7 @@
+# v1.2.3
+
+- Adding Traversable return type to Repository interface
+
 # v1.2.0
 
 - Adding storage module to package
