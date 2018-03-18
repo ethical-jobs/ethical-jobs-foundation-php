@@ -2,6 +2,7 @@
 
 namespace EthicalJobs\Foundation\Storage\Repositories;
 
+use Traversable;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use EthicalJobs\Foundation\Storage\Repository;
@@ -153,7 +154,7 @@ class DatabaseRepository implements Repository
     /**
      * {@inheritdoc}
      */
-    public function find()
+    public function find(): Traversable
     {
         $results = $this->query->get();
 

@@ -2,8 +2,9 @@
 
 namespace EthicalJobs\Foundation\Storage;
 
-use Illuminate\Support\Collection;
+use Traversable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 interface Repository
 { 
@@ -101,7 +102,7 @@ interface Repository
     /**
      * Return the result of the query
      *
-     * @return Illuminate\Support\Collection
+     * @return Traversable
      */
-    public function find();
+    public function find(): Traversable;
 }
