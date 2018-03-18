@@ -5,8 +5,8 @@ namespace Tests\Integration\Storage\QueryAdapters\Database;
 use Mockery;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Tests\Fixtures\DatabaseRepository;
-use Tests\Fixtures\MockModel;
+use Tests\Fixtures\RepositoryFactory;
+use Tests\Fixtures\Person;
 
 class FindTest extends \Tests\TestCase
 {
@@ -16,9 +16,7 @@ class FindTest extends \Tests\TestCase
      */
     public function it_can_execute_the_query()
     {
-        $expected = collect([
-            new MockModel, new MockModel, new MockModel,
-        ]);
+        $expected = factory(Person::class, 10)->create();
 
         $query = Mockery::mock(Builder::class)
              ->shouldReceive('get')
@@ -27,11 +25,13 @@ class FindTest extends \Tests\TestCase
              ->andReturn($expected)
              ->getMock();
 
-        $result = (new DatabaseRepository)
+        $results = (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->find();
 
-        $this->assertEquals($expected, $result);
+        $results->each(function($result) {
+            $this->assertInstanceOf(Person::class, $result);
+        });
     }  
 
     /**
@@ -51,7 +51,7 @@ class FindTest extends \Tests\TestCase
              ->andReturn($expected)
              ->getMock();
 
-        $result = (new DatabaseRepository)
+        $result = (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->find();
 

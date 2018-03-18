@@ -5,8 +5,8 @@ namespace Tests\Integration\Storage\QueryAdapters\Database;
 use Mockery;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Tests\Fixtures\DatabaseRepository;
-use Tests\Fixtures\MockModel;
+use Tests\Fixtures\RepositoryFactory;
+use Tests\Fixtures\Person;
 
 class FindByFieldTest extends \Tests\TestCase
 {
@@ -16,7 +16,7 @@ class FindByFieldTest extends \Tests\TestCase
      */
     public function it_can_find_by_a_field()
     {
-        $expected = new MockModel;
+        $expected = new Person;
 
         $query = Mockery::mock(Builder::class)
              ->shouldReceive('where')
@@ -29,7 +29,7 @@ class FindByFieldTest extends \Tests\TestCase
              ->andReturn(collect([$expected]))
              ->getMock();
 
-        $result = (new DatabaseRepository)
+        $result = (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->findByField('first_name', 'Andrew');
 
@@ -44,7 +44,7 @@ class FindByFieldTest extends \Tests\TestCase
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
 
-        $expected = new MockModel;
+        $expected = new Person;
 
         $query = Mockery::mock(Builder::class)
              ->shouldReceive('where')
@@ -57,7 +57,7 @@ class FindByFieldTest extends \Tests\TestCase
              ->andReturn(null)
              ->getMock();
 
-        (new DatabaseRepository)
+        (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->findByField('first_name', 'Andrew');
     }         

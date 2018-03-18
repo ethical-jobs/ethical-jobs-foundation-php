@@ -5,8 +5,9 @@ namespace Tests\Integration\Storage\QueryAdapters\Database;
 use Mockery;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Tests\Fixtures\DatabaseRepository;
-use Tests\Fixtures\MockModel;
+use EthicalJobs\Foundation\Storage\Repositories\DatabaseRepository;
+use Tests\Fixtures\RepositoryFactory;
+use Tests\Fixtures\Person;
 
 class WhereInTest extends \Tests\TestCase
 {
@@ -18,7 +19,7 @@ class WhereInTest extends \Tests\TestCase
     {
         $query = Mockery::mock(Builder::class)->shouldIgnoreMissing();
 
-        $isFluent = (new DatabaseRepository)
+        $isFluent = (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->whereIn('status', ['APPROVED','DRAFT']);
 
@@ -37,7 +38,7 @@ class WhereInTest extends \Tests\TestCase
              ->with('status', ['APPROVED','DRAFT'])
              ->getMock();
 
-        $result = (new DatabaseRepository)
+        $result = (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->whereIn('status', ['APPROVED','DRAFT']);
     }    

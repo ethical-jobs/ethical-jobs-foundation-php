@@ -1,4 +1,4 @@
-# v1.1.0
+# v1.2.0
 
 - Adding storage module to package
 - Adding QueryAdapters, Abstract Repositories, ParameterMaps and QueriesByParameters trait.

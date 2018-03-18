@@ -7,12 +7,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use EthicalJobs\Foundation\Storage\Repository;
 
 /**
- * Abstract database repository
+ * Database repository
  *
  * @author Andrew McLagan <andrew@ethicaljobs.com.au>
  */
 
-abstract class DatabaseRepository implements Repository
+class DatabaseRepository implements Repository
 {
     /**
      * Eloquent model 

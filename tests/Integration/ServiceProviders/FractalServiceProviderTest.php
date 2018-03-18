@@ -12,7 +12,7 @@ class FractalServiceProviderTest extends \Tests\TestCase
     {
         $config = config('fractal');
 
-        $this->assertEquals($config['default_serializer'], \EthicalJobs\Foundation\Fractal\Normalizr::class);
+        $this->assertEquals($config['default_serializer'], \EthicalJobs\Foundation\Http\Normalizr::class);
     }
 
     /**

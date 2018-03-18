@@ -3,7 +3,7 @@
 namespace Tests\Unit\Utils;
 
 use Carbon\Carbon;
-use Tests\Fixtures\MockModel;
+use Tests\Fixtures\Person;
 use EthicalJobs\Foundation\Utils\Dates;
 
 class DatesTest extends \Tests\TestCase
@@ -14,7 +14,7 @@ class DatesTest extends \Tests\TestCase
      */
     public function it_returns_false_when_checking_for_recent_and_date_is_null()
     {
-        $model = new MockModel;
+        $model = new Person;
 
         $model->created_at = null;
 
@@ -27,7 +27,7 @@ class DatesTest extends \Tests\TestCase
      */
     public function it_can_check_if_a_model_was_created_recently()
     {
-        $model = new MockModel;
+        $model = new Person;
 
         $model->created_at = Carbon::now();
         $this->assertTrue(Dates::wasCreatedRecently($model) === true);
@@ -45,7 +45,7 @@ class DatesTest extends \Tests\TestCase
      */
     public function it_can_check_if_a_model_was_NOT_created_recently()
     {
-        $model = new MockModel;
+        $model = new Person;
 
         $model->created_at = Carbon::now()->addMinutes(5);
         $this->assertTrue(Dates::wasCreatedRecently($model) === false);

@@ -4,8 +4,8 @@ namespace Tests\Integration\Storage\QueryAdapters\Database;
 
 use Mockery;
 use Illuminate\Database\Eloquent\Builder;
-use Tests\Fixtures\DatabaseRepository;
-use Tests\Fixtures\MockModel;
+use Tests\Fixtures\RepositoryFactory;
+use Tests\Fixtures\Person;
 
 class FindByIdTest extends \Tests\TestCase
 {
@@ -15,9 +15,9 @@ class FindByIdTest extends \Tests\TestCase
      */
     public function it_returns_a_model_if_one_is_passed_in()
     {
-        $repository = new DatabaseRepository;
+        $repository = RepositoryFactory::build(new Person);
 
-        $id = new MockModel;
+        $id = new Person;
 
         $result = $repository->findById($id);
 
@@ -30,7 +30,7 @@ class FindByIdTest extends \Tests\TestCase
      */
     public function it_can_find_by_id()
     {
-        $expected = new MockModel;
+        $expected = new Person;
 
         $query = Mockery::mock(Builder::class)
              ->shouldReceive('find')
@@ -39,7 +39,7 @@ class FindByIdTest extends \Tests\TestCase
              ->andReturn($expected)
              ->getMock();
 
-        $result = (new DatabaseRepository)
+        $result = (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->findById(1337);
 
@@ -54,7 +54,7 @@ class FindByIdTest extends \Tests\TestCase
     {
         $this->expectException(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class);
 
-        $expected = new MockModel;
+        $expected = new Person;
 
         $query = Mockery::mock(Builder::class)
              ->shouldReceive('find')
@@ -63,7 +63,7 @@ class FindByIdTest extends \Tests\TestCase
              ->andReturn(null)
              ->getMock();
 
-        (new DatabaseRepository)
+        (RepositoryFactory::build(new Person))
             ->setQuery($query)
             ->findById(1337);
     }         
