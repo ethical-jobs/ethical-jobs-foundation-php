@@ -1,6 +1,6 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Fixtures;
+namespace Tests\Fixtures;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

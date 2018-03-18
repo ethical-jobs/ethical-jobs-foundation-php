@@ -1,11 +1,11 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Unit\Utils;
+namespace Tests\Unit\Utils;
 
 use Carbon\Carbon;
 use EthicalJobs\Foundation\Utils\Timestamp;
 
-class TimestampTest extends \EthicalJobs\Tests\Foundation\TestCase
+class TimestampTest extends \Tests\TestCase
 {
     /**
      * @test

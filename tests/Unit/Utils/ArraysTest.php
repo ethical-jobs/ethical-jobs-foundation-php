@@ -1,10 +1,10 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Unit\Utils;
+namespace Tests\Unit\Utils;
 
 use EthicalJobs\Foundation\Utils\Arrays;
 
-class ArraysTest extends \EthicalJobs\Tests\Foundation\TestCase
+class ArraysTest extends \Tests\TestCase
 {
     /**
      * @test

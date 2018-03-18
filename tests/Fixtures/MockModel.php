@@ -1,31 +1,10 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Fixtures;
+namespace Tests\Fixtures;
 
 use Illuminate\Database\Eloquent\Model;
-use EthicalJobs\Foundation\Elasticsearch\Indexable;
-use EthicalJobs\Foundation\Elasticsearch\Document;
 
-class MockModel extends Model implements Indexable
+class MockModel extends Model
 {
-    use Document;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDocumentMappings()
-    {
-        return [
-            'name' 	=> ['type' => 'text'],
-            'email'	=> ['type' => 'text'],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDocumentRelations()
-    {
-        return [];
-    }    
 }

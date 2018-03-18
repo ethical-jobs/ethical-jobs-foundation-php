@@ -3,9 +3,8 @@
 namespace EthicalJobs\Foundation\Storage\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use EthicalJobs\Foundation\Storage\QueriesByParameters;
-use EthicalJobs\Foundation\Storage\QueryAdapter;
-use EthicalJobs\Foundation\Storage\ParameterMap;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use EthicalJobs\Foundation\Storage\Repository;
 
 /**
  * Abstract database repository
@@ -13,38 +12,155 @@ use EthicalJobs\Foundation\Storage\ParameterMap;
  * @author Andrew McLagan <andrew@ethicaljobs.com.au>
  */
 
-abstract class DatabaseRepository
+abstract class DatabaseRepository implements Repository
 {
-    use QueriesByParameters;
+    /**
+     * Eloquent model 
+     * 
+     * @var Illuminate\Database\Eloquent\Model
+     */    
+    protected $model;
 
     /**
-     * Query param to Query function map
-     *
-     * @var Array
-     */
-    protected $parameterMap = [];
-
-    /**
-     * Default parameter values
-     *
-     * @var Array
-     */
-    protected $defaultValues = [];
+     * Eloquent model query builder
+     * 
+     * @var Illuminate\Database\Eloquent\Builder
+     */    
+    protected $query;    
 
     /**
      * Object constructor
      *
      * @param Illuminate\Database\Eloquent\Model $model
-     * @param EthicalJobs\Foundation\Storage\QueryAdapter $queryAdapter
-     * @param EthicalJobs\Foundation\Storage\ParameterMapper $parameterMapper
      */
-    public function __construct(Model $model, QueryAdapter $queryAdapter, ParameterMapper $parameterMapper)
+    public function __construct(Model $model)
     {
-        $this->setQueryAdapter($queryAdapter)
-            ->setQuery($this->model->query());
+        $this->model = $model;
 
-        $this->setParameterMapper($parameterMapper)
-            ->setParameterMap($this->parameterMap)
-            ->setDefaultValues($this->defaultValues);
+        $this->query = $model->query();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getQuery()
+    {    
+        return $this->query;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setQuery($query)
+    {    
+        $this->query = $query;
+
+        return $this;
+    }    
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findById($id): Model
+    {
+        if ($id instanceof Model) {
+            return $id;
+        }
+
+        if ($entity = $this->query->find($id)) {
+            return $entity;
+        }
+
+        throw new NotFoundHttpException("Entity with id: $id not found");
+    }  
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByField(string $field, $value): Model
+    {
+        if ($results = $this->query->where($field, $value)->get()) {
+            return $results->first();
+        }
+
+        throw new NotFoundHttpException("Entity with field $field and value $value not found");
+    }     
+
+    /**
+     * {@inheritdoc}
+     */
+    public function where(string $field, $operator, $value = null): Repository
+    {
+        $this->query->where($field, $operator, $value);
+
+        return $this;
+    }  
+
+    /**
+     * {@inheritdoc}
+     */
+    public function whereIn(string $field, array $values): Repository
+    {
+        $this->query->whereIn($field, $values);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function orderBy(string $field, $direction = 'asc'): Repository
+    {
+        $this->query->orderBy($field, $direction);
+
+        return $this;
+    }            
+
+    /**
+     * {@inheritdoc}
+     */
+    public function limit(int $limit): Repository
+    {
+        $this->query->limit($limit);
+
+        return $this;
+    }   
+
+    /**
+     * {@inheritdoc}
+     */  
+    public function asModels(): Repository
+    {
+        return $this;
+    }    
+
+    /**
+     * {@inheritdoc}
+     */ 
+    public function asObjects(): Repository
+    {
+        return $this;
+    }    
+    
+    /**
+     * {@inheritdoc}
+     */ 
+    public function asArrays(): Repository
+    {
+        return $this;
+    }                      
+
+    /**
+     * {@inheritdoc}
+     */
+    public function find()
+    {
+        $results = $this->query->get();
+
+        if ($results->isEmpty()) {
+            throw new NotFoundHttpException;
+        }
+        
+        return $results;
+    }   
 }

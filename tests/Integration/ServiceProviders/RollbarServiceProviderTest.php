@@ -1,11 +1,11 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\ServiceProviders;
+namespace Tests\Integration\ServiceProviders;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
-class RollbarServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
+class RollbarServiceProviderTest extends \Tests\TestCase
 {
     // Currently cant set the environment during testing to check this.
     // 

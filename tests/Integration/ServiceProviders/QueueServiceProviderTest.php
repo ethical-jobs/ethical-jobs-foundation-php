@@ -1,13 +1,13 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\ServiceProviders;
+namespace Tests\Integration\ServiceProviders;
 
 use Mockery;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Queue;
-use EthicalJobs\Tests\Foundation\Fixtures;
+use Tests\Fixtures;
 
-class QueueServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
+class QueueServiceProviderTest extends \Tests\TestCase
 {
     /**
      * @test

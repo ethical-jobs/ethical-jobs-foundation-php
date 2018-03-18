@@ -1,12 +1,12 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\Logging;
+namespace Tests\Integration\Logging;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Bus;
 use EthicalJobs\Foundation\Logging\QueueLogEntry;
 
-class LogWriterTest extends \EthicalJobs\Tests\Foundation\TestCase
+class LogWriterTest extends \Tests\TestCase
 {
     /**
      * @test

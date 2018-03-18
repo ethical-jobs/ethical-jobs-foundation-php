@@ -1,8 +1,8 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\ServiceProviders;
+namespace Tests\Integration\ServiceProviders;
 
-class FractalServiceProviderTest extends \EthicalJobs\Tests\Foundation\TestCase
+class FractalServiceProviderTest extends \Tests\TestCase
 {
     /**
      * @test

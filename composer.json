@@ -28,7 +28,6 @@
         "mockery/mockery": "1.0.*",
         "codedungeon/phpunit-result-printer": "^0.5.3",
         "orchestra/testbench": "~3.5",
-        "orchestra/database": "~3.5",
         "hirak/prestissimo": "^0.3.7"
     },
     "autoload": {
@@ -38,7 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EthicalJobs\\Tests\\Foundation\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
@@ -46,7 +45,6 @@
     "extra": {
         "laravel": {
             "providers": [
-                "EthicalJobs\\Foundation\\Laravel\\ElasticsearchServiceProvider",
                 "EthicalJobs\\Foundation\\Laravel\\LoggingServiceProvider",
                 "EthicalJobs\\Foundation\\Laravel\\FractalServiceProvider",
                 "EthicalJobs\\Foundation\\Laravel\\QueueServiceProvider"

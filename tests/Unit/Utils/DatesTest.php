@@ -1,12 +1,12 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Unit\Utils;
+namespace Tests\Unit\Utils;
 
 use Carbon\Carbon;
-use EthicalJobs\Tests\Foundation\Fixtures\MockModel;
+use Tests\Fixtures\MockModel;
 use EthicalJobs\Foundation\Utils\Dates;
 
-class DatesTest extends \EthicalJobs\Tests\Foundation\TestCase
+class DatesTest extends \Tests\TestCase
 {
     /**
      * @test

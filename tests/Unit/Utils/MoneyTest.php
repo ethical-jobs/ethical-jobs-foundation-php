@@ -1,10 +1,10 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Unit\Utils;
+namespace Tests\Unit\Utils;
 
 use EthicalJobs\Foundation\Utils\Money;
 
-class MoneyTest extends \EthicalJobs\Tests\Foundation\TestCase
+class MoneyTest extends \Tests\TestCase
 {
     /**
      * @test

@@ -5,7 +5,7 @@ namespace EthicalJobs\Foundation\Storage;
 use ReflectionMethod;
 
 /**
- * Parent repository
+ * Executes queries by mapping parameters
  *
  * @author Andrew McLagan <andrew@ethicaljobs.com.au>
  */
@@ -128,18 +128,6 @@ trait QueriesByParameters
     }	
 
 	/**
-	 * Dynamically call a query function via its query parameter
-	 * 
-	 * @param  string $name 
-	 * @param  array $arguments 
-	 * @return $this
-	 */
-    public function __call(string $name, array $arguments)
-    {
-        return $this->queryByParameter($name, ...$arguments);
-    }  
-
-	/**
 	 * Call a query function by query parameter
 	 * 
 	 * @param  string $parameterName 
@@ -159,11 +147,7 @@ trait QueriesByParameters
         			$this->queryAdapter->$functionName($parameterName, ...$arguments);
         		}
         	}
-        } else if (method_exists($this, $parameterName)) {
-        	return $this->$parameterName(...$arguments);
         }
-        
-        return $this;  
     }          
 
 	/**

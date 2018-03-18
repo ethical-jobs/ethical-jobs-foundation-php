@@ -1,13 +1,13 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\Storage;
+namespace Tests\Integration\Storage;
 
 use Mockery;
 use EthicalJobs\Foundation\Storage\QueryAdapter;
 use EthicalJobs\Foundation\Storage\ParameterMapper;
-use EthicalJobs\Tests\Foundation\Fixtures\MockRepository;
+use Tests\Fixtures\MockRepository;
 
-class QueriesByPararmetersTest extends \EthicalJobs\Tests\Foundation\TestCase
+class QueriesByPararmetersTest extends \Tests\TestCase
 {
     /**
      * @test

@@ -1,11 +1,11 @@
 <?php
 
-namespace EthicalJobs\Tests\Foundation\Integration\Storage;
+namespace Tests\Integration\Storage;
 
 use Mockery;
 use EthicalJobs\Foundation\Storage\ParameterMapper;
 
-class ParameterMapperTest extends \EthicalJobs\Tests\Foundation\TestCase
+class ParameterMapperTest extends \Tests\TestCase
 {
     /**
      * @test
