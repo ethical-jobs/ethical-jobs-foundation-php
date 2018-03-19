@@ -18,11 +18,11 @@ trait ExtendsAssertions
       * Both arrays must have the same indexes with identical values
       * without respect to key ordering
       *
-      * @param Array|Collection $expected
-      * @param Array|Collection $actual
+      * @param iterable $expected
+      * @param iterable $actual
       * @return bool
       */
-    function assertArrayEquals(Array $expected, Array $actual, $message = null)
+    function assertArrayEquals(iterable $expected, iterable $actual, $message = null)
     {
         if ($expected instanceof Collection) {
             $expected = $expected->toArray();

@@ -1,3 +1,7 @@
+# v1.2.4
+
+- Adding `iterable` type hint to array testing helpers
+
 # v1.2.3
 
 - Adding Traversable return type to Repository interface
