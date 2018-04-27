@@ -1,3 +1,7 @@
+# v1.3.0
+
+- Adding `ParameterQuery` interfaces
+
 # v1.2.4
 
 - Adding `iterable` type hint to array testing helpers
