@@ -27,18 +27,18 @@ interface Repository
      * Find a model by its id
      *
      * @param string|int $id
-     * @return Illuminate\Database\Eloquent\Model
+     * @return mixed
      */
-    public function findById($id): Model;   
+    public function findById($id);   
 
     /**
      * Find a model by a field
      *
      * @param string $field
      * @param mixed $value
-     * @return Illuminate\Database\Eloquent\Model
+     * @return mixed
      */
-    public function findByField(string $field, $value): Model;      
+    public function findByField(string $field, $value);      
 
     /**
      * Executes a where query on a field.
