@@ -1,3 +1,7 @@
+# v1.3.1
+
+- Renaming repository storage engine scheme
+
 # v1.3.0
 
 - Adding `ParameterQuery` interfaces
