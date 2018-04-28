@@ -44,7 +44,7 @@ class DatabaseRepository implements Repository
     /**
      * {@inheritdoc}
      */
-    public function getQuery()
+    public function getStorageEngine()
     {    
         return $this->query;
     }
@@ -52,9 +52,9 @@ class DatabaseRepository implements Repository
     /**
      * {@inheritdoc}
      */
-    public function setQuery($query)
+    public function setStorageEngine($storage)
     {    
-        $this->query = $query;
+        $this->query = $storage;
 
         return $this;
     }    
@@ -62,7 +62,7 @@ class DatabaseRepository implements Repository
     /**
      * {@inheritdoc}
      */
-    public function findById($id): Model
+    public function findById($id)
     {
         if ($id instanceof Model) {
             return $id;
@@ -78,7 +78,7 @@ class DatabaseRepository implements Repository
     /**
      * {@inheritdoc}
      */
-    public function findByField(string $field, $value): Model
+    public function findByField(string $field, $value)
     {
         if ($results = $this->query->where($field, $value)->get()) {
             return $results->first();

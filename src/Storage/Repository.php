@@ -9,19 +9,19 @@ use Illuminate\Database\Eloquent\Collection;
 interface Repository
 { 
     /**
-     * Get the current query instance
+     * Get the current storage engine instance
      *
      * @return mixed
      */
-    public function getQuery();
+    public function getStorageEngine();
 
     /**
-     * Sets the current query instance
+     * Sets the current storage engine instance
      *
-     * @param query $query
+     * @param mixed $storage
      * @return $this
      */
-    public function setQuery($query);
+    public function setStorageEngine($storage);
 
     /**
      * Find a model by its id
