@@ -20,7 +20,7 @@ class OrderByTest extends \Tests\TestCase
         $query = Mockery::mock(Builder::class)->shouldIgnoreMissing();
 
         $isFluent = (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->orderBy('status', 'asc');
 
         $this->assertInstanceOf(DatabaseRepository::class, $isFluent);
@@ -39,7 +39,7 @@ class OrderByTest extends \Tests\TestCase
              ->getMock();
 
         $result = (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->orderBy('status', 'asc');
     }    
 }

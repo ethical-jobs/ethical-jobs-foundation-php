@@ -40,7 +40,7 @@ class FindByIdTest extends \Tests\TestCase
              ->getMock();
 
         $result = (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->findById(1337);
 
         $this->assertEquals($expected, $result);
@@ -64,7 +64,7 @@ class FindByIdTest extends \Tests\TestCase
              ->getMock();
 
         (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->findById(1337);
     }         
 }

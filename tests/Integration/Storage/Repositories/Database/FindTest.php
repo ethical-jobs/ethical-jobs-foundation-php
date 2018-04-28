@@ -26,7 +26,7 @@ class FindTest extends \Tests\TestCase
              ->getMock();
 
         $results = (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->find();
 
         $results->each(function($result) {
@@ -52,7 +52,7 @@ class FindTest extends \Tests\TestCase
              ->getMock();
 
         $result = (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->find();
 
         $this->assertEquals($expected, $result);

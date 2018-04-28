@@ -30,7 +30,7 @@ class FindByFieldTest extends \Tests\TestCase
              ->getMock();
 
         $result = (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->findByField('first_name', 'Andrew');
 
         $this->assertEquals($expected, $result);
@@ -58,7 +58,7 @@ class FindByFieldTest extends \Tests\TestCase
              ->getMock();
 
         (RepositoryFactory::build(new Person))
-            ->setQuery($query)
+            ->setStorageEngine($query)
             ->findByField('first_name', 'Andrew');
     }         
 }
