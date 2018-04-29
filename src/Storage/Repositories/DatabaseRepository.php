@@ -38,7 +38,7 @@ class DatabaseRepository implements Repository
     {
         $this->model = $model;
 
-        $this->query = $model->query();
+        $this->setStorageEngine($model->query());
     }
 
     /**
