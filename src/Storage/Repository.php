@@ -76,28 +76,7 @@ interface Repository
      * @param int $limit
      * @return $this
      */
-    public function limit(int $limit): Repository;   
-
-    /**
-     * Hydrate results as Eloquent models
-     *
-     * @return $self
-     */   
-    public function asModels(): Repository;    
-
-    /**
-     * Hydrate results as ArrayObjects
-     *
-     * @return $self
-     */   
-    public function asObjects(): Repository;    
-    
-    /**
-     * Hydrate results as associative arrays
-     *
-     * @return $self
-     */   
-    public function asArrays(): Repository;                      
+    public function limit(int $limit): Repository;                    
 
     /**
      * Return the result of the query

@@ -3,9 +3,13 @@
 namespace EthicalJobs\Foundation\Storage\Repositories;
 
 use Traversable;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use EthicalJobs\Foundation\Storage\Repository;
+use EthicalJobs\Foundation\Storage\RepositoryCriteria;
+use EthicalJobs\Foundation\Storage\CriteriaCollection;
+use EthicalJobs\Foundation\Storage\HasCriteria;
 
 /**
  * Database repository
@@ -13,8 +17,10 @@ use EthicalJobs\Foundation\Storage\Repository;
  * @author Andrew McLagan <andrew@ethicaljobs.com.au>
  */
 
-class DatabaseRepository implements Repository
+class DatabaseRepository implements Repository, RepositoryCriteria
 {
+    use HasCriteria;
+
     /**
      * Eloquent model 
      * 
@@ -39,6 +45,8 @@ class DatabaseRepository implements Repository
         $this->model = $model;
 
         $this->setStorageEngine($model->query());
+
+        $this->criteria = new CriteriaCollection;
     }
 
     /**
@@ -125,37 +133,15 @@ class DatabaseRepository implements Repository
         $this->query->limit($limit);
 
         return $this;
-    }   
-
-    /**
-     * {@inheritdoc}
-     */  
-    public function asModels(): Repository
-    {
-        return $this;
-    }    
-
-    /**
-     * {@inheritdoc}
-     */ 
-    public function asObjects(): Repository
-    {
-        return $this;
-    }    
-    
-    /**
-     * {@inheritdoc}
-     */ 
-    public function asArrays(): Repository
-    {
-        return $this;
-    }                      
+    }  
 
     /**
      * {@inheritdoc}
      */
     public function find(): Traversable
     {
+        $this->applyCriteria();
+
         $results = $this->query->get();
 
         if ($results->isEmpty()) {

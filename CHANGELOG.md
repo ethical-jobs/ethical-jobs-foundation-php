@@ -1,3 +1,7 @@
+# v1.4.0
+
+- Adding Repository Criteria
+
 # v1.3.1
 
 - Renaming repository storage engine scheme
