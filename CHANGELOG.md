@@ -1,6 +1,7 @@
-# v1.4.0
+# [v1.4.0 - v1.4.1]
 
 - Adding Repository Criteria
+- Fix test helper type error
 
 # v1.3.1
 
